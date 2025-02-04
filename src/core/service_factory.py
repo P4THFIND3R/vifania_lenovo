@@ -3,6 +3,7 @@ from typing import Optional
 from src.core.config import settings
 from src.services.camera_service import CameraService
 from src.repositories.camera_repository import CameraRepository
+from src.services.connection_service import ConnectionService
 from src.services.telegram_service import TelegramService
 
 
@@ -12,6 +13,8 @@ class ServiceFactory:
         self._camera_service: Optional[CameraService] = None
 
         self._telegram_service: Optional[TelegramService] = None
+
+        self._connection_service: Optional[ConnectionService] = None
 
     @property
     def camera_repository(self) -> CameraRepository:
@@ -33,3 +36,9 @@ class ServiceFactory:
                 chat_id=settings.CHAT_ID
             )
         return self._telegram_service
+
+    @property
+    def connection_service(self) -> ConnectionService:
+        if not self._connection_service:
+            self._connection_service = ConnectionService()
+        return self._connection_service
