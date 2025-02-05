@@ -27,7 +27,7 @@ class TelegramService:
 
     async def send_photos(self, photos: list[str]):
         tasks = [asyncio.create_task(self._send_photo_task(photo)) for photo in photos]
-        result = await asyncio.gather(*tasks)
+        await asyncio.gather(*tasks)
 
     async def _send_photo_task(self, photo_url: str):
         try:
