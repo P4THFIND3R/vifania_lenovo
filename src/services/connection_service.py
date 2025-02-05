@@ -20,7 +20,8 @@ class ConnectionService:
             logger.warning(f"Интернет недоступен, пробуем снова через {check_interval} секунд...")
             await asyncio.sleep(check_interval)
 
-    async def _is_internet_available(self, timeout=5) -> bool:
+    @staticmethod
+    async def _is_internet_available(timeout=5) -> bool:
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get("https://www.google.com", timeout=timeout) as response:
